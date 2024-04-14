@@ -46,3 +46,6 @@ body {
     box-shadow: 3px 3px 3px;
 }    
 
+table {
+    table-layout: auto;
+}
