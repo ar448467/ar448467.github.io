@@ -26,14 +26,18 @@ body {
 
 .Lista_wyścigów {
     display:inline-block;
+    margin-left: 100px;
+    margin-bottom: 30px;
     background-color: white;
     padding: 1em;
-
+    
     box-shadow: 3px 3px 3px;
 }
 
 .Lista_kierowców {
     float:right;
+    margin-right: 100px;
+    margin-bottom: 30px;
     background-color: white;
     padding: 1em;
 
