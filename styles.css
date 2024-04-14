@@ -7,7 +7,8 @@ h3 {
 }
 
 .blue {
-    color: blue;
+    color: yellow;
+    animation: spin 1s linear infinite;
 }
 
 header {
