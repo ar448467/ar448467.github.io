@@ -24,3 +24,12 @@ body {
     background-color: rgb(247 254 231);
 }
 
+.Lista_wyścigów {
+    display:inline-block;
+    background-color: white;
+}
+
+.Lista_kierowców {
+    float:right;
+}    
+
