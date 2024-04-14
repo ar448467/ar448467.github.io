@@ -11,25 +11,34 @@
   <p class="display-6 text-center fw-bold mt-3 mb-2">Wygraj bilet na wyścig Formuły 1!</p>
   <p class="lead text-center mt-3 mb-2">Poniżej znajduje się formularz stworzony przy pomocy bootstrap. Wypełnij go aby wygrac bilet na wyścig F1. </p>
   
-  <form action="" method="get" class="form-example">
+  <form action="" method="get" class="form-example needs-validation">
   <div class="container">
     <div class="row">
         <div class="col">
   <div class="mt-5 mb-3">
     <label for="imie">Imię: </label>
     <input type="text" name="imie" id="imie" required />
+    <div class="invalid-feedback">
+        Podaj Imię.
+      </div>
   </div>
         </div>
         <div class="col">
     <div class="mt-5 mb-3">
     <label for="imie">Nazwisko: </label>
     <input type="text" name="nazwisko" id="nazwisko" required />
+      <div class="invalid-feedback">
+        Podaj Nazwisko.
+      </div>
   </div>
         </div>
         <div class="col">
     <div class="mt-5 mb-3">
     <label for="imie">Nr telefonu:</label>
     <input type="text" name="tel" id="tel" required />
+      <div class="invalid-feedback">
+        Podaj nr Telefonu.
+      </div>
   </div>
         </div>
       </div> 
@@ -39,6 +48,9 @@
     <div class="mt-5 mb-3">
     <label for="imie">E-mail </label>
     <input type="text" name="e-mail" id="email" placeholder="np. proba@gmail.com" required />
+      <div class="invalid-feedback">
+        Podaj E-mail.
+      </div>
   </div>
         </div>
         <div class="col">
