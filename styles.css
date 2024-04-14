@@ -22,6 +22,8 @@ header {
 
 body {
     background-color: rgb(247 254 231);
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .Lista_wyścigów {
