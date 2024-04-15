@@ -264,6 +264,10 @@ table {
   table-layout: auto;
 }
 
+.border{
+    border: 1px solid;
+}
+
 /*
 1. Change the font styles in all browsers.
 2. Remove the margin in Firefox and Safari.
