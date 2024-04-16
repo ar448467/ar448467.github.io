@@ -241,16 +241,6 @@ sup {
   top: -0.5em;
 }
 
-#flex-row{
-  
-  flex-direction: row;
-  color: yellow;
-}
-
-#flex-col{
-  flex-direction: column;
-}
-
 .flex-auto{
   flex: 1 1 auto;
 }
