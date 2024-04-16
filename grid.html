@@ -28,9 +28,9 @@
     grid-gap: 20px;
     grid-template-columns: 200px 200px 200px;
     grid-template-areas:
-    "....... header header"
+    "header header header"
     "sidebar content content"
-    "footer  footer  footer";
+    "sidebar  footer  footer";
     background-color: #fff;
     color: #444;
   }
@@ -46,6 +46,8 @@
 
 .header{
   background-color: #999;
+  text-align: center;
+  font-size: 130%;
 }
 .footer {
   background-color: #999;
@@ -56,7 +58,7 @@
 </head>
 <body>
  <div class="wrapper">
-  <div class="box header">Header</div>
+  <div class="box header">Nagłówek strony o niczym</div>
   <div class="box sidebar">Przykładowe Menu Boczne. Do niczego nie służy.</div>
   <div class="box content">
    Witamy na stronie stworzonej na przedmiocie AWWW. Ta strona jest stworzona za pomocą CSS Grid.
