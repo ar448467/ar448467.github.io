@@ -242,6 +242,7 @@ sup {
 }
 
 .flex-row{
+  color: red;
   flex-direction: row;
 }
 
