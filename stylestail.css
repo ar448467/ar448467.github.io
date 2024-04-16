@@ -241,12 +241,12 @@ sup {
   top: -0.5em;
 }
 
-.flex-row{
+#flex-row{
   color: red;
   flex-direction: row;
 }
 
-.flex-col{
+#flex-col{
   flex-direction: column;
 }
 
