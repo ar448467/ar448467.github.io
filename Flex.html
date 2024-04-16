@@ -1,9 +1,22 @@
 <html>
 <head>
   <style>
-    .container {
+    .container1 {
       display:flex;
       flex-direction: row;
+    }
+    .container2 {
+      display:flex;
+      flex-direction: column;
+    }
+    .container3 {
+      display:flex;
+      flex-direction: row;
+      flex: 1 1 auto;
+    }
+    .container4 {
+      display:flex;
+      flex: none;
     }
     .box {
   background-color: rgb(75,57,57);
@@ -21,25 +34,25 @@
 <body >
   <p>Demonstracja użycia Flex</p>
   <p>Flex-row:</p>
-  <div class="container">
+  <div class="container1">
     <div class="box">Item 1</div>
     <div class="box">Item 2</div>
     <div class="box">Item 3</div>
   </div>
   <p>Flex-col:</p>
-  <div class="container">
+  <div class="container2">
     <div class="box">Item 1</div>
     <div class="box">Item 2</div>
     <div class="box">Item 3</div>
   </div>
-  <p>flex col i flex auto</p>
-  <div class="container">
+  <p>flex row i flex auto</p>
+  <div class="container3">
     <div class="box">Item 1</div>
     <div class="box">Item 2</div>
     <div class="box">Item 3</div>
   </div>
   <p>flex none</p>
-  <div class="container">
+  <div class="container4">
     <div class="box">Item 1</div>
     <div class="box">Item 2</div>
     <div class="box">Item 3</div>
