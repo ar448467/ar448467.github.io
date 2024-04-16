@@ -242,8 +242,9 @@ sup {
 }
 
 #flex-row{
-  color: red;
+  
   flex-direction: row;
+  color: yellow;
 }
 
 #flex-col{
