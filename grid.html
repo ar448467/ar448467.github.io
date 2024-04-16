@@ -2,26 +2,61 @@
 <head>
   <title>Using CSS-Grid</title>
 <style>
-  a {
-    text-align: center;
-    margin-left: 540px;
+  body {
+  margin: 40px;
+}
+
+.sidebar {
+    grid-area: sidebar;
   }
 
-  #content{
-    display: grid;
-    max-width: 960px
-    margin: 0 auto;
+  .content {
+    grid-area: content;
   }
+
+  .header {
+    grid-area: header;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+
+
+  .wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 120px 120px 120px;
+    grid-template-areas:
+    "....... header header"
+    "sidebar content content"
+    "footer  footer  footer";
+    background-color: #fff;
+    color: #444;
+  }
+
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.header,
+.footer {
+  background-color: #999;
+}
 </style>
 </head>
 <body>
-  <div id="content">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
-    <div>5</div>
-    <div>6</div>
-  </div>
+ <div class="wrapper">
+  <div class="box header">Header</div>
+  <div class="box sidebar">Sidebar</div>
+  <div class="box content">Content
+    <br /> More content than we had before so this column is now quite tall.</div>
+  <div class="box footer">Footer</div>
+</div>
  </body>
 </html>
