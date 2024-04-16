@@ -526,6 +526,14 @@ video {
   display: none;
 }
 
+.pulse:before{
+  animation: pulse 2s ease-out infinite;
+}
+
+.pulse:after{
+  animation: pulse 2s 1s ease-out infinite;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
