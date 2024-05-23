@@ -1,19 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('imageForm');
     const imageContainer = document.getElementById('imageContainer');
+    let startX, startY, currentRect;
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent the form from submitting in the traditional way
+    // Funkcja tworząca nowy prostokąt SVG
+    function createSVGRect(x, y, width, height, fillColor) {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', width);
+        rect.setAttribute('height', height);
+        rect.setAttribute('fill', fillColor);
+        return rect;
+    }
 
-        const imageUrl = document.getElementById('imageUrl').value;
-        if (imageUrl) {
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = 'Added Image';
-            img.style.maxWidth = '100%'; // Optional: limit the width of the image
+    // Funkcja rozpoczynająca rysowanie prostokąta
+    function startDrawRect(event) {
+        startX = event.clientX;
+        startY = event.clientY;
+        currentRect = createSVGRect(startX, startY, 0, 0, 'blue');
+        imageContainer.appendChild(currentRect);
+        document.addEventListener('mousemove', drawRect);
+        document.addEventListener('mouseup', stopDrawRect);
+    }
 
-            imageContainer.appendChild(img);
-            document.getElementById('imageUrl').value = ''; // Clear the input field
-        }
-    });
+    // Funkcja rysująca prostokąt w czasie przeciągania
+    function drawRect(event) {
+        const width = event.clientX - startX;
+        const height = event.clientY - startY;
+        currentRect.setAttribute('width', Math.abs(width));
+        currentRect.setAttribute('height', Math.abs(height));
+        currentRect.setAttribute('x', width < 0 ? event.clientX : startX);
+        currentRect.setAttribute('y', height < 0 ? event.clientY : startY);
+    }
+
+    // Funkcja kończąca rysowanie prostokąta
+    function stopDrawRect() {
+        document.removeEventListener('mousemove', drawRect);
+        document.removeEventListener('mouseup', stopDrawRect);
+    }
+
+    // Dodajemy nasłuchiwanie zdarzenia "mousedown" na kontenerze obrazków
+    imageContainer.addEventListener('mousedown', startDrawRect);
 });
