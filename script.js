@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.top = `${y}px`;
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
-        rect.style.border = `2px solid ${color}`;
-        rect.style.backgroundColor = `${color}33`;
+        rect.style.borderColor = color;
+        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
         return rect;
     }
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     rect.style.width = `${width}px`;
     rect.style.height = `${height}px`;
     rect.style.borderColor = color;
-    rect.style.backgroundColor = `${color}33`;
+    rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
     return rect;
 }
 
