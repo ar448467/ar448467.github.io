@@ -42,6 +42,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.removeEventListener('mouseup', stopDrawRect);
     }
 
+    function createRectangle(x, y, width, height, color) {
+    const rect = document.createElement('div');
+    rect.classList.add('rectangle');
+    rect.style.left = `${x}px`;
+    rect.style.top = `${y}px`;
+    rect.style.width = `${width}px`;
+    rect.style.height = `${height}px`;
+    rect.style.borderColor = color;
+    rect.style.backgroundColor = `${color}33`;
+    return rect;
+}
+
+function addRectangle() {
+    const x1 = parseInt(document.getElementById('x1').value);
+    const y1 = parseInt(document.getElementById('y1').value);
+    const x2 = parseInt(document.getElementById('x2').value);
+    const y2 = parseInt(document.getElementById('y2').value);
+    const color = document.getElementById('colorPicker').value;
+
+    const x = Math.min(x1, x2);
+    const y = Math.min(y1, y2);
+    const width = Math.abs(x2 - x1);
+    const height = Math.abs(y2 - y1);
+
+    const rect = createRectangle(x, y, width, height, color);
+    document.getElementById('imageContainer').appendChild(rect);
+}
+
     // Dodajemy nasłuchiwanie zdarzenia "mousedown" na kontenerze obrazków
     imageContainer.addEventListener('mousedown', startDrawRect);
 });
