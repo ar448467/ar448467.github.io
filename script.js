@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.top = `${y}px`;
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
-        rect.style.borderColor = color;
         rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
         return rect;
     }
