@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageContainer = document.getElementById('imageContainer');
     let startX, startY, currentRect;
     const colorPicker = document.getElementById('colorPicker');
-     let selectedRect = null;
+    let selectedRect = null;
     
     // Funkcja tworząca nowy prostokąt do podglądu
     function createPreviewRect(x, y, width, height, color) {
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = createRectangle(x, y, width, height, selectedColor);
         imageContainer.appendChild(rect);
     }
+
     // Funkcja zaznaczająca prostokąt do usunięcia
     function selectRectangle(event) {
         if (selectedRect) {
@@ -106,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     window.serializeImage = function() {
+    // Funkcja serializująca obrazek zawierający prostokąty do formatu JSON
+    window.serializeImage = function() {
         const rectangles = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
             return {
                 left: rect.style.left,
