@@ -105,4 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Proszę wybrać prostokąt do usunięcia.");
         }
     }
+
+     window.serializeRectangles = function() {
+        const rectangles = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
+            return {
+                left: rect.style.left,
+                top: rect.style.top,
+                width: rect.style.width,
+                height: rect.style.height,
+                color: rect.style.backgroundColor
+            };
+        });
+        const jsonOutput = document.getElementById('jsonOutput');
+        jsonOutput.value = JSON.stringify(rectangles, null, 2);
+    }
 });
