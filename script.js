@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const imageContainer = document.getElementById('imageContainer');
     let startX, startY, currentRect;
-
+    const colorPicker = document.getElementById('colorPicker');
     // Funkcja tworząca nowy prostokąt do podglądu
-    function createPreviewRect(x, y, width, height) {
+    function createPreviewRect(x, y, width, height, color) {
         const rect = document.createElement('div');
         rect.style.position = 'absolute';
         rect.style.left = `${x}px`;
         rect.style.top = `${y}px`;
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
-        rect.style.border = '2px solid blue';
-        rect.style.backgroundColor = 'rgba(0, 0, 255, 0.3)'; // Dodanie tła dla lepszej widoczności
+        rect.style.border = `2px solid ${color}`;
+        rect.style.backgroundColor = `${color}33`;
         return rect;
     }
 
@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function startDrawRect(event) {
         startX = event.offsetX;
         startY = event.offsetY;
-        currentRect = createPreviewRect(startX, startY, 0, 0);
+        const selectedColor = colorPicker.value;
+        currentRect = createPreviewRect(startX, startY, 0, 0, selectedColor);
         imageContainer.appendChild(currentRect);
         document.addEventListener('mousemove', drawRect);
         document.addEventListener('mouseup', stopDrawRect);
