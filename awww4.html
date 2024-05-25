@@ -34,7 +34,12 @@
         <input type="number" id="y2" name="y2" required><br><br>
         <button type="button" onclick="addRectangle()">Dodaj</button>
     </form>
-    
+    <h2>Usuwanie prostokąta</h2>
+    <form id="deleteForm">
+        <label for="deleteInfo">Informacje o prostokącie:</label>
+        <input type="text" id="deleteInfo" name="deleteInfo" readonly><br><br>
+        <button type="button" onclick="deleteRectangle()">Usuń</button>
+    </form>
     <script src="script.js"></script>
 </body>
 </html>
