@@ -80,4 +80,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = createRectangle(x, y, width, height, selectedColor);
         imageContainer.appendChild(rect);
     }
+    // Funkcja zaznaczająca prostokąt do usunięcia
+    function selectRectangle(event) {
+        if (selectedRect) {
+            selectedRect.style.borderColor = selectedRect.style.backgroundColor;
+        }
+        selectedRect = event.target;
+        selectedRect.style.borderColor = 'red';
+
+        const rectInfo = `Współrzędne: (${selectedRect.style.left}, ${selectedRect.style.top}), Wymiary: ${selectedRect.style.width} x ${selectedRect.style.height}`;
+        document.getElementById('deleteInfo').value = rectInfo;
+    }
+
+    // Funkcja usuwająca zaznaczony prostokąt
+    window.deleteRectangle = function() {
+        if (selectedRect) {
+            selectedRect.remove();
+            document.getElementById('deleteInfo').value = '';
+            selectedRect = null;
+        } else {
+            alert("Proszę wybrać prostokąt do usunięcia.");
+        }
+    }
 });
