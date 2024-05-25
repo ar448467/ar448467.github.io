@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageContainer = document.getElementById('imageContainer');
     let startX, startY, currentRect;
     const colorPicker = document.getElementById('colorPicker');
+
     // Funkcja tworząca nowy prostokąt do podglądu
     function createPreviewRect(x, y, width, height, color) {
         const rect = document.createElement('div');
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.top = `${y}px`;
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
+        rect.style.border = `2px solid ${color}`;
         rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
         return rect;
     }
@@ -41,33 +43,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.removeEventListener('mouseup', stopDrawRect);
     }
 
-    function createRectangle(x, y, width, height, color) {
-    const rect = document.createElement('div');
-    rect.classList.add('rectangle');
-    rect.style.left = `${x}px`;
-    rect.style.top = `${y}px`;
-    rect.style.width = `${width}px`;
-    rect.style.height = `${height}px`;
-    
-    rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
-    return rect;
-}
-
-function addRectangle() {
-    const x1 = parseInt(document.getElementById('x1').value);
-    const y1 = parseInt(document.getElementById('y1').value);
-    const x2 = parseInt(document.getElementById('x2').value);
-    const y2 = parseInt(document.getElementById('y2').value);
-    const selectedColor = colorPicker.value;
-    const x = Math.min(x1, x2);
-    const y = Math.min(y1, y2);
-    const width = Math.abs(x2 - x1);
-    const height = Math.abs(y2 - y1);
-
-    const rect = createRectangle(x, y, width, height, selectedColor);
-    document.getElementById('imageContainer').appendChild(rect);
-}
-
     // Dodajemy nasłuchiwanie zdarzenia "mousedown" na kontenerze obrazków
     imageContainer.addEventListener('mousedown', startDrawRect);
+
+    // Funkcja tworząca prostokąt na podstawie podanych wartości
+    function createRectangle(x, y, width, height, color) {
+        const rect = document.createElement('div');
+        rect.classList.add('rectangle');
+        rect.style.left = `${x}px`;
+        rect.style.top = `${y}px`;
+        rect.style.width = `${width}px`;
+        rect.style.height = `${height}px`;
+        rect.style.borderColor = color;
+        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
+        return rect;
+    }
+
+    // Funkcja dodająca prostokąt na podstawie wartości z formularza
+    window.addRectangle = function() {
+        const x1 = parseInt(document.getElementById('x1').value);
+        const y1 = parseInt(document.getElementById('y1').value);
+        const x2 = parseInt(document.getElementById('x2').value);
+        const y2 = parseInt(document.getElementById('y2').value);
+        const selectedColor = colorPicker.value;
+
+        if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+            alert("Proszę wpisać poprawne wartości współrzędnych.");
+            return;
+        }
+
+        const x = Math.min(x1, x2);
+        const y = Math.min(y1, y2);
+        const width = Math.abs(x2 - x1);
+        const height = Math.abs(y2 - y1);
+
+        const rect = createRectangle(x, y, width, height, selectedColor);
+        imageContainer.appendChild(rect);
+    }
 });
