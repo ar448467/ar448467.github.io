@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageContainer = document.getElementById('imageContainer');
     let startX, startY, currentRect;
     const colorPicker = document.getElementById('colorPicker');
-
+     let selectedRect = null;
+    
     // Funkcja tworząca nowy prostokąt do podglądu
     function createPreviewRect(x, y, width, height, color) {
         const rect = document.createElement('div');
