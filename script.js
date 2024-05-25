@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     window.serializeRectangles = function() {
+     window.serializeImage = function() {
         const rectangles = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
             return {
                 left: rect.style.left,
@@ -116,7 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: rect.style.backgroundColor
             };
         });
+
+        const imageContainerStyle = {
+            width: imageContainer.style.width,
+            height: imageContainer.style.height,
+            border: imageContainer.style.border
+        };
+
+        const imageData = {
+            container: imageContainerStyle,
+            rectangles: rectangles
+        };
+
         const jsonOutput = document.getElementById('jsonOutput');
-        jsonOutput.value = JSON.stringify(rectangles, null, 2);
+        jsonOutput.value = JSON.stringify(imageData, null, 2);
     }
 });
