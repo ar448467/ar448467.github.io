@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.height = `${height}px`;
         rect.style.border = `2px solid ${color}`;
         rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
+        rect.addEventListener('click', selectRectangle);
         return rect;
     }
 
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.height = `${height}px`;
         rect.style.borderColor = color;
         rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
+        rect.addEventListener('click', selectRectangle);
         return rect;
     }
 
