@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .image-container {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+        .image-container.loading::after {
+            content: "Loading...";
+            position: absolute;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery" class="gallery"></div>
+
+    <script>
+        const imageCount = 10; // Number of images to load
+        const gallery = document.getElementById('gallery');
+
+        async function fetchImage() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/random-svg'); // Adjust the URL if needed
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                return data.svg;
+            } catch (error) {
+                console.error('Failed to fetch image:', error);
+                throw error;
+            }
+        }
+
+        function createImageContainer() {
+            const container = document.createElement('div');
+            container.classList.add('image-container', 'loading');
+            const img = document.createElement('img');
+            container.appendChild(img);
+            gallery.appendChild(container);
+            return { container, img };
+        }
+
+        async function loadImage(container, img) {
+            try {
+                const svgContent = await fetchImage();
+                const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
+                const svgUrl = URL.createObjectURL(svgBlob);
+                img.onload = () => {
+                    container.classList.remove('loading');
+                    img.style.display = 'block';
+                    URL.revokeObjectURL(svgUrl);
+                };
+                img.src = svgUrl;
+            } catch (error) {
+                container.classList.remove('loading');
+                container.innerText = 'Failed to load image';
+            }
+        }
+
+        function initGallery() {
+            for (let i = 0; i < imageCount; i++) {
+                const { container, img } = createImageContainer();
+                loadImage(container, img);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+</body>
+</html>
