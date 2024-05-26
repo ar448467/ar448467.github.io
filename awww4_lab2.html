@@ -19,6 +19,7 @@
             align-items: center;
             background-color: #f0f0f0;
             position: relative;
+            flex-direction: column;
         }
         .image-container img {
             max-width: 100%;
@@ -35,6 +36,20 @@
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        .error-message {
+            display: none;
+            color: red;
+            text-align: center;
+        }
+        .retry-button {
+            display: none;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #09f;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -68,14 +83,24 @@
 
             const img = document.createElement('img');
 
+            const errorMessage = document.createElement('div');
+            errorMessage.classList.add('error-message');
+            errorMessage.innerText = 'Failed to load image';
+
+            const retryButton = document.createElement('button');
+            retryButton.classList.add('retry-button');
+            retryButton.innerText = 'Try Again';
+
             container.appendChild(spinner);
             container.appendChild(img);
+            container.appendChild(errorMessage);
+            container.appendChild(retryButton);
             gallery.appendChild(container);
 
-            return { container, spinner, img };
+            return { container, spinner, img, errorMessage, retryButton };
         }
 
-        async function loadImage(container, spinner, img) {
+        async function loadImage(container, spinner, img, errorMessage, retryButton) {
             try {
                 const svgContent = await fetchImage();
                 const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
@@ -83,19 +108,28 @@
                 img.onload = () => {
                     spinner.style.display = 'none';
                     img.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    retryButton.style.display = 'none';
                     URL.revokeObjectURL(svgUrl);
                 };
                 img.src = svgUrl;
             } catch (error) {
                 spinner.style.display = 'none';
-                container.innerText = 'Failed to load image';
+                errorMessage.style.display = 'block';
+                retryButton.style.display = 'block';
+                retryButton.onclick = () => {
+                    spinner.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    retryButton.style.display = 'none';
+                    loadImage(container, spinner, img, errorMessage, retryButton);
+                };
             }
         }
 
         function initGallery() {
             for (let i = 0; i < imageCount; i++) {
-                const { container, spinner, img } = createImageContainer();
-                loadImage(container, spinner, img);
+                const { container, spinner, img, errorMessage, retryButton } = createImageContainer();
+                loadImage(container, spinner, img, errorMessage, retryButton);
             }
         }
 
