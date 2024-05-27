@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const imageContainer: HTMLElement | null = document.getElementById('imageContainer');
-    let startX: number, startY: number, currentRect: HTMLDivElement | null = null;
-    const colorPicker: HTMLSelectElement | null = document.getElementById('colorPicker') as HTMLSelectElement;
+    let startX: number, startY: number, currentRect: HTMLDivElement | null;
+    const colorPicker: HTMLInputElement | null = document.getElementById('colorPicker') as HTMLInputElement;
     let selectedRect: HTMLDivElement | null = null;
+
     
     function createPreviewRect(x: number, y: number, width: number, height: number, color: string): HTMLDivElement {
         const rect: HTMLDivElement = document.createElement('div');
@@ -12,21 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
         rect.style.border = `2px solid ${color}`;
-        rect.style.backgroundColor = color;
+        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
         rect.addEventListener('click', selectRectangle);
         return rect;
     }
 
+    
     function startDrawRect(event: MouseEvent): void {
         startX = event.offsetX;
         startY = event.offsetY;
-        const selectedColor: string = colorPicker ? colorPicker.value : 'black';
+        const selectedColor: string = colorPicker.value;
         currentRect = createPreviewRect(startX, startY, 0, 0, selectedColor);
-        if (imageContainer && currentRect) imageContainer.appendChild(currentRect);
+        if (imageContainer) imageContainer.appendChild(currentRect);
         document.addEventListener('mousemove', drawRect);
         document.addEventListener('mouseup', stopDrawRect);
     }
 
+    // Funkcja rysująca prostokąt w czasie przeciągania
     function drawRect(event: MouseEvent): void {
         if (!currentRect) return;
         const width: number = event.offsetX - startX;
@@ -39,13 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     function stopDrawRect(): void {
         document.removeEventListener('mousemove', drawRect);
         document.removeEventListener('mouseup', stopDrawRect);
     }
 
+    // Dodajemy nasłuchiwanie zdarzenia "mousedown" na kontenerze obrazków
     if (imageContainer) imageContainer.addEventListener('mousedown', startDrawRect);
 
+    
     function createRectangle(x: number, y: number, width: number, height: number, color: string): HTMLDivElement {
         const rect: HTMLDivElement = document.createElement('div');
         rect.classList.add('rectangle');
@@ -54,17 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
         rect.style.borderColor = color;
-        rect.style.backgroundColor = color;
+        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
         rect.addEventListener('click', selectRectangle);
         return rect;
     }
 
-    (window as any).addRectangle = function(): void {
+   
+    window.addRectangle = function(): void {
         const x1: number = parseInt((document.getElementById('x1') as HTMLInputElement).value);
         const y1: number = parseInt((document.getElementById('y1') as HTMLInputElement).value);
         const x2: number = parseInt((document.getElementById('x2') as HTMLInputElement).value);
         const y2: number = parseInt((document.getElementById('y2') as HTMLInputElement).value);
-        const selectedColor: string = colorPicker ? colorPicker.value : 'black';
+        const selectedColor: string = colorPicker.value;
 
         if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
             alert("Proszę wpisać poprawne wartości współrzędnych.");
@@ -80,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (imageContainer) imageContainer.appendChild(rect);
     }
 
+    
     function selectRectangle(event: MouseEvent): void {
         if (selectedRect) {
             selectedRect.style.borderColor = selectedRect.style.backgroundColor;
@@ -91,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
         (document.getElementById('deleteInfo') as HTMLInputElement).value = rectInfo;
     }
 
-    (window as any).deleteRectangle = function(): void {
+    
+    window.deleteRectangle = function(): void {
         if (selectedRect) {
             selectedRect.remove();
             (document.getElementById('deleteInfo') as HTMLInputElement).value = '';
@@ -101,7 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    (window as any).serializeImage = function(): void {
+    
+    window.serializeImage = function(): void {
         const rectangles: any[] = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
             return {
                 left: rect.style.left,
