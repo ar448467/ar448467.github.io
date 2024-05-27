@@ -25,6 +25,7 @@
         const addImageButton = document.getElementById("addImage");
 
         ws.onmessage = (event) => {
+            console.log("WebSocket message received:", event.data);
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("image-container");
             imageContainer.innerHTML = event.data;
