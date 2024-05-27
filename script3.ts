@@ -21,7 +21,10 @@ ws.onclose = () => {
 addImageButton.addEventListener("click", () => {
     console.log("Button clicked");
     fetch("http://127.0.0.1:7000/add-image")
-        .then(response => response.json())
+        .then(response => {
+            console.log("Response status:", response.status);
+            return response.json();
+        })
         .then(data => {
             console.log("Response from server:", data);
         })
