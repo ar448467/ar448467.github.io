@@ -40,10 +40,11 @@
         };
 
         addImageButton.addEventListener("click", () => {
-            fetch("/add-image")
+            console.log("Button clicked");
+            fetch("http://127.0.0.1:8000/add-image")
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.message);
+                    console.log("Response from server:", data);
                 })
                 .catch(error => console.error("Error:", error));
         });
