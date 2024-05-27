@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recently Added Images</title>
+    <style>
+        .image-container {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recently Added Images</h1>
+    <div id="images"></div>
+
+    <script>
+        const imagesDiv = document.getElementById("images");
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws/images");
+
+        ws.onmessage = (event) => {
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("image-container");
+            imageContainer.innerHTML = event.data;
+            imagesDiv.insertBefore(imageContainer, imagesDiv.firstChild);
+        };
+
+        ws.onopen = () => {
+            console.log("WebSocket connection opened");
+        };
+
+        ws.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
+    </script>
+</body>
+</html>
