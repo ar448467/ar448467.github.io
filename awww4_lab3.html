@@ -17,10 +17,12 @@
 <body>
     <h1>Recently Added Images</h1>
     <div id="images"></div>
+    <button id="addImage">Add Random Image</button>
 
     <script>
         const imagesDiv = document.getElementById("images");
         const ws = new WebSocket("ws://127.0.0.1:8000/ws/images");
+        const addImageButton = document.getElementById("addImage");
 
         ws.onmessage = (event) => {
             const imageContainer = document.createElement("div");
@@ -36,6 +38,15 @@
         ws.onclose = () => {
             console.log("WebSocket connection closed");
         };
+
+        addImageButton.addEventListener("click", () => {
+            fetch("/add-image")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => console.error("Error:", error));
+        });
     </script>
 </body>
 </html>
