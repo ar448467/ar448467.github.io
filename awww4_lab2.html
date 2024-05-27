@@ -58,12 +58,12 @@ User
     <div id="gallery" class="gallery"></div>
 
     <script>
-        const imageCount = 10;
+        const count = 20;
         const gallery = document.getElementById('gallery');
 
         async function fetchImage() {
             try {
-                const response = await fetch('http://127.0.0.1:8000/random-svg');
+                const response = await fetch('http://127.0.0.1:9000/random-svg');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -84,9 +84,9 @@ User
 
             const img = document.createElement('img');
 
-            const errorMessage = document.createElement('div');
-            errorMessage.classList.add('error-message');
-            errorMessage.innerText = 'Failed to load image';
+            const errormess = document.createElement('div');
+            errormess.classList.add('error-message');
+            errormess.innerText = 'Failed to load image';
 
             const retryButton = document.createElement('button');
             retryButton.classList.add('retry-button');
@@ -94,14 +94,14 @@ User
 
             container.appendChild(spinner);
             container.appendChild(img);
-            container.appendChild(errorMessage);
+            container.appendChild(errormess);
             container.appendChild(retryButton);
             gallery.appendChild(container);
 
-            return { container, spinner, img, errorMessage, retryButton };
+            return { container, spinner, img, errormess, retryButton };
         }
 
-        async function loadImage(container, spinner, img, errorMessage, retryButton) {
+        async function loadImage(container, spinner, img, errormess, retryButton) {
             try {
                 const svgContent = await fetchImage();
                 const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
@@ -109,14 +109,14 @@ User
                 img.onload = () => {
                     spinner.style.display = 'none';
                     img.style.display = 'block';
-                    errorMessage.style.display = 'none';
+                    errormess.style.display = 'none';
                     retryButton.style.display = 'none';
                     URL.revokeObjectURL(svgUrl);
                 };
                 img.src = svgUrl;
             } catch (error) {
                 spinner.style.display = 'none';
-                errorMessage.style.display = 'block';
+                errormess.style.display = 'block';
                 retryButton.style.display = 'block';
                 retryButton.onclick = () => {
                     spinner.style.display = 'block';
@@ -128,9 +128,9 @@ User
         }
 
         function initGallery() {
-            for (let i = 0; i < imageCount; i++) {
-                const { container, spinner, img, errorMessage, retryButton } = createImageContainer();
-                loadImage(container, spinner, img, errorMessage, retryButton);
+            for (let i = 0; i < count; i++) {
+                const { container, spinner, img, errormess, retryButton } = createImageContainer();
+                loadImage(container, spinner, img, errormess, retryButton);
             }
         }
 
