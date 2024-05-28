@@ -100,13 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: element.style.backgroundColor
             };
         });
-        const imageContainerStyle = {
-            width: imageContainer.style.width,
-            height: imageContainer.style.height,
-            border: imageContainer.style.border
-        };
         const imageData = {
-            container: imageContainerStyle,
             rectangles: rectangles
         };
         const jsonOutput = document.getElementById('jsonOutput');
