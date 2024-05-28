@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startY = event.offsetY;
         const selectedColor = colorPicker.value;
         currentRect = createRect(startX, startY, 0, 0, selectedColor);
-        imageContainer.appendChild(currentRect);
         document.addEventListener('mousemove', drawRect);
         document.addEventListener('mouseup', stopDrawRect);
     }
@@ -34,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentRect.style.height = `${Math.abs(height)}px`;
         currentRect.style.left = `${width < 0 ? event.offsetX : startX}px`;
         currentRect.style.top = `${height < 0 ? event.offsetY : startY}px`;
+        imageContainer.appendChild(currentRect);
     }
     function stopDrawRect() {
         document.removeEventListener('mousemove', drawRect);
