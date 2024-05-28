@@ -19,13 +19,14 @@
     <div id="imageContainer" style="position: relative; width: 1225px; height: 700px; border: 10px solid black;"></div>
     
     <form id="colorForm" class = "form">
-        <label for="colorPicker">Wybierz kolor prostokąta:</label>
+    <label for="colorPicker">Wybierz kolor prostokąta:</label>
         <select id="colorPicker" name="colorPicker">
             <option value="yellow">Żółty</option>
             <option value="green">Zielony</option>
             <option value="blue">Niebieski</option>
-        </select><br><br>
+    </select><br><br>
     </form>
+    
     <form id="rectangleForm">
         <label for="x1">x₁:</label>
         <input type="number" id="x1" name="x1" required><br><br>
@@ -41,13 +42,13 @@
     <form id="deleteForm">
         <label for="deleteInfo">Informacje o prostokącie:</label>
         <input type="text" id="deleteInfo" name="deleteInfo" readonly><br><br>
-        <button type="button" onclick="deleteRectangle()">Usuń</button>
+    <button type="button" onclick="deleteRectangle()">Usuń</button>
     </form>
 
     <h2>Serializacja obrazka</h2>
     <button type="button" onclick="serializeImage()">Serializuj do JSON</button>
-    <textarea id="jsonOutput" rows="10" cols="50" readonly></textarea>
+    <textarea id="jsonOutput" rows="20" cols="30" readonly></textarea>
 
-    <script src="script.ts"></script>
+    <script src="script1.ts"></script>
 </body>
 </html>
