@@ -90,16 +90,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     window.serializeImage = function () {
-        const rectangles = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
-            const element = rect;
-            return {
-                left: element.style.left,
-                top: element.style.top,
-                width: element.style.width,
-                height: element.style.height,
-                color: element.style.backgroundColor
-            };
-        });
+        const rectangles = [];
+        const children = imageContainer.children;
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i];
+            if (child.classList.contains('rectangle')) {
+                rectangles.push({
+                    left: child.style.left,
+                    top: child.style.top,
+                    width: child.style.width,
+                    height: child.style.height,
+                    color: child.style.backgroundColor
+                });
+            }
+        }
         const imageData = {
             rectangles: rectangles
         };
