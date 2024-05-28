@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX, startY, currentRect = null;
     const colorPicker = document.getElementById('colorPicker');
     let selectedRect = null;
-    // Funkcja tworząca nowy prostokąt do podglądu
-    function createPreviewRect(x, y, width, height, color) {
+    function createRect(x, y, width, height, color) {
         const rect = document.createElement('div');
         rect.style.position = 'absolute';
         rect.style.left = `${x}px`;
@@ -13,21 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
         rect.style.border = `2px solid ${color}`;
-        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
+        rect.style.backgroundColor = color;
         rect.addEventListener('click', selectRectangle);
         return rect;
     }
-    // Funkcja rozpoczynająca rysowanie prostokąta
     function startDrawRect(event) {
         startX = event.offsetX;
         startY = event.offsetY;
         const selectedColor = colorPicker.value;
-        currentRect = createPreviewRect(startX, startY, 0, 0, selectedColor);
+        currentRect = createRect(startX, startY, 0, 0, selectedColor);
         imageContainer.appendChild(currentRect);
         document.addEventListener('mousemove', drawRect);
         document.addEventListener('mouseup', stopDrawRect);
     }
-    // Funkcja rysująca prostokąt w czasie przeciągania
     function drawRect(event) {
         if (!currentRect)
             return;
@@ -38,15 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         currentRect.style.left = `${width < 0 ? event.offsetX : startX}px`;
         currentRect.style.top = `${height < 0 ? event.offsetY : startY}px`;
     }
-    // Funkcja kończąca rysowanie prostokąta
     function stopDrawRect() {
         document.removeEventListener('mousemove', drawRect);
         document.removeEventListener('mouseup', stopDrawRect);
         currentRect = null;
     }
-    // Dodajemy nasłuchiwanie zdarzenia "mousedown" na kontenerze obrazków
     imageContainer.addEventListener('mousedown', startDrawRect);
-    // Funkcja tworząca prostokąt na podstawie podanych wartości
     function createRectangle(x, y, width, height, color) {
         const rect = document.createElement('div');
         rect.classList.add('rectangle');
@@ -55,11 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         rect.style.width = `${width}px`;
         rect.style.height = `${height}px`;
         rect.style.borderColor = color;
-        rect.style.backgroundColor = color; // Ustawienie koloru wnętrza
+        rect.style.backgroundColor = color;
         rect.addEventListener('click', selectRectangle);
         return rect;
     }
-    // Funkcja dodająca prostokąt na podstawie wartości z formularza
     window.addRectangle = function () {
         const x1 = parseInt(document.getElementById('x1').value);
         const y1 = parseInt(document.getElementById('y1').value);
@@ -77,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = createRectangle(x, y, width, height, selectedColor);
         imageContainer.appendChild(rect);
     };
-    // Funkcja zaznaczająca prostokąt do usunięcia
     function selectRectangle(event) {
         if (selectedRect) {
             selectedRect.style.borderColor = selectedRect.style.backgroundColor;
@@ -87,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const rectInfo = `Współrzędne: (${selectedRect.style.left}, ${selectedRect.style.top}), Wymiary: ${selectedRect.style.width} x ${selectedRect.style.height}`;
         document.getElementById('deleteInfo').value = rectInfo;
     }
-    // Funkcja usuwająca zaznaczony prostokąt
     window.deleteRectangle = function () {
         if (selectedRect) {
             selectedRect.remove();
@@ -98,10 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Proszę wybrać prostokąt do usunięcia.");
         }
     };
-    // Funkcja serializująca obrazek zawierający prostokąty do formatu JSON
     window.serializeImage = function () {
         const rectangles = Array.from(document.getElementsByClassName('rectangle')).map(rect => {
-            const element = rect; // Rzutowanie elementu na HTMLDivElement
+            const element = rect;
             return {
                 left: element.style.left,
                 top: element.style.top,
