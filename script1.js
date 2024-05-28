@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedRect = null;
     function createRect(x, y, width, height, color) {
         const rect = document.createElement('div');
+        rect.classList.add('rectangle'); // Dodaj klasę rectangle
         rect.style.position = 'absolute';
         rect.style.left = `${x}px`;
         rect.style.top = `${y}px`;
