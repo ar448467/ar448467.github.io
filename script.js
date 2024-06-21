@@ -1,107 +1,54 @@
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
-
-// Tablica przechowująca wszystkie prostokąty na canvasie
-let rectangles = [];
-
-// Funkcja rysująca wszystkie prostokąty z tablicy rectangles
-function drawRectangles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Wyczyść canvas przed narysowaniem
-  rectangles.forEach(rect => {
-    ctx.fillStyle = rect.color;
-    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
-  });
-}
-
-// Funkcja sprawdzająca czy kliknięcie nastąpiło wewnątrz prostokąta
-function isInsideRect(x, y, rect) {
-  return x >= rect.x && x <= rect.x + rect.width &&
-         y >= rect.y && y <= rect.y + rect.height;
-}
-
-// Obsługa dodawania nowego prostokąta
-function addRectangle(event) {
-  event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
-  const colorPicker = document.getElementById('colorPicker');
-  const x1Input = document.getElementById('x1');
-  const y1Input = document.getElementById('y1');
-  const x2Input = document.getElementById('x2');
-  const y2Input = document.getElementById('y2');
-
-  // Pobierz dane z formularza
-  const color = colorPicker.value;
-  const x1 = parseInt(x1Input.value);
-  const y1 = parseInt(y1Input.value);
-  const x2 = parseInt(x2Input.value);
-  const y2 = parseInt(y2Input.value);
-
-  // Oblicz współrzędne i wymiary prostokąta
-  const x = Math.min(x1, x2);
-  const y = Math.min(y1, y2);
-  const width = Math.abs(x2 - x1);
-  const height = Math.abs(y2 - y1);
-
-  // Sprawdź, czy współrzędne są w zakresie canvas
-  if (x < 0 || x + width > canvas.width || y < 0 || y + height > canvas.height) {
-    alert("Współrzędne wykraczają poza obszar canvas.");
-    return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Rectangle Editor</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
   }
-
-  // Dodaj nowy prostokąt do tablicy
-  rectangles.push({ x, y, width, height, color });
-
-  // Odśwież wyświetlanie canvasa
-  drawRectangles();
-
-  // Wyczyść formularz
-  x1Input.value = '';
-  y1Input.value = '';
-  x2Input.value = '';
-  y2Input.value = '';
-}
-
-// Obsługa usuwania prostokąta
-function deleteRectangle(event) {
-  event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
-
-  // Znajdź prostokąt, który ma być usunięty
-  const deleteRectIndex = rectangles.findIndex(rect => rect.delete);
-  if (deleteRectIndex !== -1) {
-    rectangles.splice(deleteRectIndex, 1); // Usuń prostokąt z tablicy
-    drawRectangles(); // Odśwież wyświetlanie canvasa
+  canvas {
+    border: 1px solid #000;
   }
-
-  // Ukryj informację o usuwanym prostokącie
-  const deleteInfo = document.getElementById('deleteInfo');
-  deleteInfo.style.display = 'none';
-}
-
-// Obsługa kliknięcia na canvas
-canvas.addEventListener('click', function(event) {
-  const mouseX = event.offsetX;
-  const mouseY = event.offsetY;
-
-  // Sprawdź każdy prostokąt, czy kliknięcie nastąpiło wewnątrz
-  for (let i = rectangles.length - 1; i >= 0; i--) {
-    if (isInsideRect(mouseX, mouseY, rectangles[i])) {
-      // Oznacz prostokąt do usunięcia
-      rectangles[i].delete = true;
-
-      // Wyświetl informację o usuwanym prostokącie
-      const deleteRectInfo = document.getElementById('deleteRectInfo');
-      deleteRectInfo.textContent = `(${rectangles[i].x}, ${rectangles[i].y}) - (${rectangles[i].x + rectangles[i].width}, ${rectangles[i].y + rectangles[i].height})`;
-      const deleteInfo = document.getElementById('deleteInfo');
-      deleteInfo.style.display = 'block';
-      
-      break; // Przerywamy pętlę po pierwszym znalezionym prostokącie
-    }
+  form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-});
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+  <canvas id="myCanvas" width="600" height="400"></canvas>
+  <form id="rectangleForm">
+    <label for="colorPicker">Wybierz kolor wypełnienia:</label>
+    <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+    <label for="x1">X1:</label>
+    <input type="number" id="x1" name="x1" min="0" max="600">
+    <label for="y1">Y1:</label>
+    <input type="number" id="y1" name="y1" min="0" max="400">
+    <label for="x2">X2:</label>
+    <input type="number" id="x2" name="x2" min="0" max="600">
+    <label for="y2">Y2:</label>
+    <input type="number" id="y2" name="y2" min="0" max="400">
+    <button type="submit">Dodaj prostokąt</button>
+    <div id="deleteInfo" style="display: none;">
+      Usuwany prostokąt: <span id="deleteRectInfo"></span>
+      <button type="button" id="deleteRectangle">Usuń</button>
+    </div>
+  </form>
 
-// Nasłuchuj zdarzenie submit na formularzu
-const form = document.getElementById('rectangleForm');
-form.addEventListener('submit', addRectangle);
-
-// Nasłuchuj zdarzenie kliknięcia na przycisku usuń
-const deleteButton = document.getElementById('deleteRectangle');
-deleteButton.addEventListener('click', deleteRectangle);
+  <script src="script.js"></script>
+</body>
+</html>
