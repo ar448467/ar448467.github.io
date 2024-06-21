@@ -17,15 +17,23 @@ function drawRectangles() {
 function addRectangle(event) {
   event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
   const colorPicker = document.getElementById('colorPicker');
-  const xCoord = document.getElementById('xCoord');
-  const yCoord = document.getElementById('yCoord');
+  const x1Input = document.getElementById('x1');
+  const y1Input = document.getElementById('y1');
+  const x2Input = document.getElementById('x2');
+  const y2Input = document.getElementById('y2');
 
   // Pobierz dane z formularza
   const color = colorPicker.value;
-  const x = parseInt(xCoord.value);
-  const y = parseInt(yCoord.value);
-  const width = 50; // Szerokość nowego prostokąta
-  const height = 50; // Wysokość nowego prostokąta
+  const x1 = parseInt(x1Input.value);
+  const y1 = parseInt(y1Input.value);
+  const x2 = parseInt(x2Input.value);
+  const y2 = parseInt(y2Input.value);
+
+  // Oblicz współrzędne i wymiary prostokąta
+  const x = Math.min(x1, x2);
+  const y = Math.min(y1, y2);
+  const width = Math.abs(x2 - x1);
+  const height = Math.abs(y2 - y1);
 
   // Sprawdź, czy współrzędne są w zakresie canvas
   if (x < 0 || x + width > canvas.width || y < 0 || y + height > canvas.height) {
@@ -40,8 +48,10 @@ function addRectangle(event) {
   drawRectangles();
 
   // Wyczyść formularz
-  xCoord.value = '';
-  yCoord.value = '';
+  x1Input.value = '';
+  y1Input.value = '';
+  x2Input.value = '';
+  y2Input.value = '';
 }
 
 // Nasłuchuj zdarzenie submit na formularzu
