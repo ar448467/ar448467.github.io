@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canvas Rectangle Drawer</title>
+<title>Canvas Rectangle Editor</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -43,6 +43,10 @@
     <label for="y2">Y2:</label>
     <input type="number" id="y2" name="y2" min="0" max="400">
     <button type="submit">Dodaj prostokąt</button>
+    <div id="deleteInfo" style="display: none;">
+      Usuwany prostokąt: <span id="deleteRectInfo"></span>
+      <button type="button" id="deleteRectangle">Usuń</button>
+    </div>
   </form>
 
   <script src="script.js"></script>
