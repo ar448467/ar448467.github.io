@@ -13,6 +13,12 @@ function drawRectangles() {
   });
 }
 
+// Funkcja sprawdzająca czy kliknięcie nastąpiło wewnątrz prostokąta
+function isInsideRect(x, y, rect) {
+  return x >= rect.x && x <= rect.x + rect.width &&
+         y >= rect.y && y <= rect.y + rect.height;
+}
+
 // Obsługa dodawania nowego prostokąta
 function addRectangle(event) {
   event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
@@ -54,6 +60,48 @@ function addRectangle(event) {
   y2Input.value = '';
 }
 
+// Obsługa usuwania prostokąta
+function deleteRectangle(event) {
+  event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
+
+  // Znajdź prostokąt, który ma być usunięty
+  const deleteRectIndex = rectangles.findIndex(rect => rect.delete);
+  if (deleteRectIndex !== -1) {
+    rectangles.splice(deleteRectIndex, 1); // Usuń prostokąt z tablicy
+    drawRectangles(); // Odśwież wyświetlanie canvasa
+  }
+
+  // Ukryj informację o usuwanym prostokącie
+  const deleteInfo = document.getElementById('deleteInfo');
+  deleteInfo.style.display = 'none';
+}
+
+// Obsługa kliknięcia na canvas
+canvas.addEventListener('click', function(event) {
+  const mouseX = event.offsetX;
+  const mouseY = event.offsetY;
+
+  // Sprawdź każdy prostokąt, czy kliknięcie nastąpiło wewnątrz
+  for (let i = rectangles.length - 1; i >= 0; i--) {
+    if (isInsideRect(mouseX, mouseY, rectangles[i])) {
+      // Oznacz prostokąt do usunięcia
+      rectangles[i].delete = true;
+
+      // Wyświetl informację o usuwanym prostokącie
+      const deleteRectInfo = document.getElementById('deleteRectInfo');
+      deleteRectInfo.textContent = `(${rectangles[i].x}, ${rectangles[i].y}) - (${rectangles[i].x + rectangles[i].width}, ${rectangles[i].y + rectangles[i].height})`;
+      const deleteInfo = document.getElementById('deleteInfo');
+      deleteInfo.style.display = 'block';
+      
+      break; // Przerywamy pętlę po pierwszym znalezionym prostokącie
+    }
+  }
+});
+
 // Nasłuchuj zdarzenie submit na formularzu
 const form = document.getElementById('rectangleForm');
 form.addEventListener('submit', addRectangle);
+
+// Nasłuchuj zdarzenie kliknięcia na przycisku usuń
+const deleteButton = document.getElementById('deleteRectangle');
+deleteButton.addEventListener('click', deleteRectangle);
