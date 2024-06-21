@@ -54,7 +54,8 @@ function deleteRectangle() {
     rectangles.splice(selectedRectangleIndex, 1);
     drawRectangles();
     selectedRectangleIndex = null;
-    document.getElementById('deleteInfo').style.display = 'none';
+    document.getElementById('deleteInfo').value = '';
+    document.getElementById('deleteForm').style.display = 'none';
   }
 }
 
@@ -66,8 +67,8 @@ canvas.addEventListener('click', function(event) {
     if (isInsideRect(mouseX, mouseY, rectangles[i])) {
       selectedRectangleIndex = i;
       const rect = rectangles[i];
-      document.getElementById('deleteRectInfo').textContent = `(${rect.x}, ${rect.y}) - (${rect.x + rect.width}, ${rect.y + rect.height})`;
-      document.getElementById('deleteInfo').style.display = 'block';
+      document.getElementById('deleteInfo').value = `(${rect.x}, ${rect.y}) - (${rect.x + rect.width}, ${rect.y + rect.height})`;
+      document.getElementById('deleteForm').style.display = 'block';
       break;
     }
   }
@@ -75,6 +76,3 @@ canvas.addEventListener('click', function(event) {
 
 const form = document.getElementById('rectangleForm');
 form.addEventListener('submit', addRectangle);
-
-const deleteButton = document.getElementById('deleteRectangle');
-deleteButton.addEventListener('click', deleteRectangle);
