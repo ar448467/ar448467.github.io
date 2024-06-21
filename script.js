@@ -17,19 +17,31 @@ function drawRectangles() {
 function addRectangle(event) {
   event.preventDefault(); // Zapobiegnij domyślnemu działaniu przycisku submit
   const colorPicker = document.getElementById('colorPicker');
+  const xCoord = document.getElementById('xCoord');
+  const yCoord = document.getElementById('yCoord');
 
   // Pobierz dane z formularza
   const color = colorPicker.value;
-  const x = Math.random() * (canvas.width - 50); // Losowa pozycja X (ograniczona przez szerokość canvasa)
-  const y = Math.random() * (canvas.height - 50); // Losowa pozycja Y (ograniczona przez wysokość canvasa)
+  const x = parseInt(xCoord.value);
+  const y = parseInt(yCoord.value);
   const width = 50; // Szerokość nowego prostokąta
   const height = 50; // Wysokość nowego prostokąta
+
+  // Sprawdź, czy współrzędne są w zakresie canvas
+  if (x < 0 || x + width > canvas.width || y < 0 || y + height > canvas.height) {
+    alert("Współrzędne wykraczają poza obszar canvas.");
+    return;
+  }
 
   // Dodaj nowy prostokąt do tablicy
   rectangles.push({ x, y, width, height, color });
 
   // Odśwież wyświetlanie canvasa
   drawRectangles();
+
+  // Wyczyść formularz
+  xCoord.value = '';
+  yCoord.value = '';
 }
 
 // Nasłuchuj zdarzenie submit na formularzu
