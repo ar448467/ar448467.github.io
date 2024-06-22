@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     function establishWebSocketConnection() {
+        console.log("WebSocket connection established");
         socket = new WebSocket("ws://localhost:8000/ws");
         socket.onmessage = function (event) {
             try {
