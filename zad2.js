@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funkcja do pobrania początkowej wartości
     function fetchCurrent() {
-        fetch('http://localhost:8000/current')
+        fetch('http://127.0.0.1:8000/current')
             .then(function (response) {
                 if (!response.ok) {
                     throw new Error("HTTP error! status: " + response.status);
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funkcja do ustanowienia połączenia WebSocket
     function establishWebSocketConnection() {
-        socket = new WebSocket("ws://localhost:8000/ws");
+        socket = new WebSocket("ws://127.0.0.1:8000/ws");
 
         socket.onmessage = function (event) {
             try {
