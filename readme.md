@@ -23,3 +23,18 @@ Aby skonfigurować kompilację TypeScript, utworzyłem plik `tsconfig.json` w g�
 
 Kompilacja
 tsc zad2.ts
+
+
+Zmieniłem plik zad2.html, dodałem przycisk odswiezajacy połączenie z websocket
+<!DOCTYPE html>
+<html>
+<head lang="pl">
+    <title>zad2</title>
+</head>
+<body>
+    <h1>zad2</h1>
+    <p>Miejsce na liczbę</p>
+    <button id="reconnect-button">Połącz ponownie</button>
+    <script src="zad2.js"></script>
+</body>
+</html>
