@@ -2,21 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     var placeholder = document.querySelector("p");
     var reconnectButton = document.getElementById("reconnect-button");
     var socket = null;
-    // Funkcja do aktualizacji tekstu w placeholderze
     function updatePlaceholder(current) {
         if (placeholder) {
             placeholder.textContent = "Aktualna wartość: " + current;
         }
     }
-    // Funkcja do wyświetlania błędów
     function showError(message) {
         if (placeholder) {
             placeholder.textContent = "Błąd: " + message;
         }
     }
-    // Funkcja do pobrania początkowej wartości
     function fetchCurrent() {
-        fetch('https://example.com/current') // Zaktualizuj URL na adres publiczny
+        fetch('http://localhost:8000/current')
             .then(function (response) {
             if (!response.ok) {
                 throw new Error("HTTP error! status: " + response.status);
@@ -34,9 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
             showError("Nie udało się pobrać początkowej wartości");
         });
     }
-    // Funkcja do ustanowienia połączenia WebSocket
     function establishWebSocketConnection() {
-        socket = new WebSocket("wss://example.com/ws"); // Użyj wss:// dla bezpiecznych połączeń WebSocket
+        socket = new WebSocket("ws://localhost:8000/ws");
         socket.onmessage = function (event) {
             try {
                 var data = JSON.parse(event.data);
